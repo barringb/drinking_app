@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:drinking_app/screens/landing_screen.dart';
 
 void main() {
   runApp(const DrinkingApp());
@@ -9,6 +10,8 @@ class DrinkingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: LandingScreen(),
+    );
   }
 }
