@@ -1,3 +1,4 @@
+import 'package:drinking_app/services/bar_tender.dart';
 import 'package:flutter/material.dart';
 import 'package:drinking_app/screens/drink_detail_screen.dart';
 
@@ -9,16 +10,19 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  BarTender barTender = BarTender();
   String? searchTerm;
 
   void searchDrinks() {
     print(searchTerm);
   }
 
-  void randomDrink() {
-    print('rando');
+  void randomDrink() async {
+
+    var cocktailData = await barTender.getRandomCocktail();
+
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return DrinkDetailScreen();
+      return DrinkDetailScreen(cocktailData: cocktailData,);
     },),);
   }
 
