@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:drinking_app/screens/drink_detail_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -16,6 +17,9 @@ class _LandingScreenState extends State<LandingScreen> {
 
   void randomDrink() {
     print('rando');
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return DrinkDetailScreen();
+    },),);
   }
 
   @override
@@ -28,7 +32,7 @@ class _LandingScreenState extends State<LandingScreen> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/barbackground.jpg'),
+              image: AssetImage('images/bar_background.jpg'),
               fit: BoxFit.cover,
             ),
           ),
