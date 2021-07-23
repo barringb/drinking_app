@@ -12,4 +12,22 @@ class BarTender {
 
   }
 
+  Future<dynamic> getCocktailDetail(String? id) async {
+
+    SearchHelper searchHelper = SearchHelper(url: '$kCocktailByIdURL$id');
+    var cocktailData = await searchHelper.getData();
+
+    return cocktailData;
+
+  }
+
+  Future<dynamic> searchCocktails(String? searchTerm) async {
+
+    SearchHelper searchHelper = SearchHelper(url: '$kCocktailByIngredientURL$searchTerm');
+    var cocktailData = await searchHelper.getData();
+
+    return cocktailData;
+
+  }
+
 }

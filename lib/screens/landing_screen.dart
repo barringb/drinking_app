@@ -1,6 +1,7 @@
 import 'package:drinking_app/services/bar_tender.dart';
 import 'package:flutter/material.dart';
 import 'package:drinking_app/screens/drink_detail_screen.dart';
+import 'package:drinking_app/screens/search_results_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -13,17 +14,37 @@ class _LandingScreenState extends State<LandingScreen> {
   BarTender barTender = BarTender();
   String? searchTerm;
 
-  void searchDrinks() {
-    print(searchTerm);
+  void searchDrinks() async {
+    if (searchTerm != null) {
+      var cocktailData = await barTender.searchCocktails(searchTerm);
+      print(searchTerm);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return SearchResultsScreen(cocktailIngredientData: cocktailData,);
+          },
+        ),
+      );
+    } else {
+      print('null entry in search.');
+    }
   }
 
   void randomDrink() async {
-
     var cocktailData = await barTender.getRandomCocktail();
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return DrinkDetailScreen(cocktailData: cocktailData,);
-    },),);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return DrinkDetailScreen(
+            cocktailData: cocktailData,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -77,12 +98,11 @@ class _LandingScreenState extends State<LandingScreen> {
                       searchDrinks();
                     },
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )
-                      )
-                    ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ))),
                     child: const Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
@@ -105,13 +125,13 @@ class _LandingScreenState extends State<LandingScreen> {
                       randomDrink();
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            )
-                        )
-                    ),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.redAccent),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ))),
                     child: const Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(

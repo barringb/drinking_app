@@ -73,7 +73,7 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: AspectRatio(
-                  aspectRatio: 1.5,
+                  aspectRatio: 1.0,
                   child: Stack(
                     children: [
                       Container(
@@ -87,23 +87,27 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
                           ),
                         ],
                         borderRadius: BorderRadius.circular(25.0),
-                        image: DecorationImage(
-                          image: NetworkImage(imageURL!),
-                          fit: BoxFit.cover,
-                        ),
                       ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25.0),
+                          child: FadeInImage(
+                            image: NetworkImage(imageURL!),
+                            placeholder: AssetImage('images/loading_image.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                     ),
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25.0),
                           gradient: LinearGradient(
-                            begin: Alignment.topCenter,
+                            begin: Alignment.center,
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.black.withAlpha(0),
                               Colors.black12,
-                              Colors.black,
+                              Colors.black54,
                             ]
                           ),
                         ),

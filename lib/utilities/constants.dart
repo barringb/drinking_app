@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 //  https://www.thecocktaildb.com/api.php
 const kApiKey = '1';
-const kCocktailByNameURL = 'www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
+const kCocktailByNameURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const kRandomCocktailURL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
-const kCocktailByIdURL = 'www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007';
-const kCocktailByIngredientURL = 'www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka';
+const kCocktailByIdURL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const kCocktailByIngredientURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+const kSampleNetworkImage = 'https://www.thecocktaildb.com/images/media/drink/yqvvqs1475667388.jpg';
 
 const kDrinkTextStyle = TextStyle(
   fontSize: 28.0,
