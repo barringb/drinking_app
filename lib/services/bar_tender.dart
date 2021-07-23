@@ -21,12 +21,17 @@ class BarTender {
 
   }
 
-  Future<dynamic> searchCocktails(String? searchTerm) async {
+  Future<List<dynamic>> searchCocktails(String? searchTerm) async {
 
     SearchHelper searchHelper = SearchHelper(url: '$kCocktailByIngredientURL$searchTerm');
-    var cocktailData = await searchHelper.getData();
+    var byIngredientData = await searchHelper.getData();
 
-    return cocktailData;
+    SearchHelper searchHelper2 = SearchHelper(url: '$kCocktailByNameURL$searchTerm');
+    var byNameData = await searchHelper2.getData();
+
+    List<dynamic> dataList = [byIngredientData, byNameData];
+
+    return dataList;
 
   }
 

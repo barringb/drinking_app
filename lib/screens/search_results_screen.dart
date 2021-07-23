@@ -4,9 +4,10 @@ import 'package:drinking_app/services/bar_tender.dart';
 import 'package:drinking_app/screens/drink_detail_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({Key? key, this.cocktailIngredientData})
+  const SearchResultsScreen({Key? key, this.cocktailIngredientData, this.cocktailByNameData})
       : super(key: key);
   final dynamic cocktailIngredientData;
+  final dynamic cocktailByNameData;
 
   @override
   State<SearchResultsScreen> createState() => _SearchResultsScreenState();
@@ -17,7 +18,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
 
   @override
   void initState() {
-    updateUI(widget.cocktailIngredientData);
+    updateUI(widget.cocktailIngredientData, widget.cocktailByNameData);
     super.initState();
   }
 
@@ -26,7 +27,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     super.dispose();
   }
 
-  void updateUI(dynamic ingredientData) {
+  void updateUI(dynamic ingredientData, dynamic byNameData) {
+    print(byNameData);
+
     if (ingredientData != null && ingredientData != '') {
       bool b = false;
       int i = 0;
@@ -38,6 +41,24 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           String drinkID = ingredientData['drinks'][i]['idDrink'];
           drinksList.add(DrinkData(name, imageURL, drinkID));
           i++;
+        } catch (e) {
+          b = true;
+        }
+      }
+    }
+
+    if (byNameData != null && byNameData != '') {
+      bool b = false;
+      int i = 0;
+
+      while (b == false) {
+        try {
+          String name = byNameData['drinks'][i]['strDrink'];
+          String imageURL = byNameData['drinks'][i]['strDrinkThumb'];
+          String drinkID = byNameData['drinks'][i]['idDrink'];
+          drinksList.add(DrinkData(name, imageURL, drinkID));
+          i++;
+
         } catch (e) {
           b = true;
           print('b = true;');

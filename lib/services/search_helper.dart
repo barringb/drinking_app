@@ -10,10 +10,8 @@ class SearchHelper {
     final Uri uri = Uri.parse(url!);
     http.Response response = await http.get(uri);
 
-    if (response.statusCode == 200) {
-      String data = response.body;
-      var decodedData = jsonDecode(data);
-
+    if (response.statusCode == 200 && response.body.isNotEmpty) {
+      var decodedData = jsonDecode(response.body);
       return decodedData;
     } else {
       print(response.statusCode);

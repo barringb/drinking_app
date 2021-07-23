@@ -16,14 +16,13 @@ class _LandingScreenState extends State<LandingScreen> {
 
   void searchDrinks() async {
     if (searchTerm != null) {
-      var cocktailData = await barTender.searchCocktails(searchTerm);
-      print(searchTerm);
+      List<dynamic> searchData = await barTender.searchCocktails(searchTerm);
 
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) {
-            return SearchResultsScreen(cocktailIngredientData: cocktailData,);
+            return SearchResultsScreen(cocktailIngredientData: searchData[0], cocktailByNameData: searchData[1],);
           },
         ),
       );
