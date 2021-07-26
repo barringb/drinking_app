@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:drinking_app/screens/landing_screen.dart';
 
 void main() {
@@ -10,7 +11,14 @@ class DrinkingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return MaterialApp(
+      theme: ThemeData.light().copyWith(backgroundColor: Colors.black),
       home: LandingScreen(),
     );
   }

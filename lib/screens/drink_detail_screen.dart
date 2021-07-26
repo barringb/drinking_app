@@ -58,16 +58,17 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10.0,
         title: const Text('Drink Finder'),
       ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/drink_background.jpg'),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/drink_background.jpg'),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SafeArea(
           child: Column(
             children: [
               Padding(
@@ -86,11 +87,13 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
                             blurRadius: 5.0,
                           ),
                         ],
-                        borderRadius: BorderRadius.circular(25.0),
+                        borderRadius: BorderRadius.circular(6.0),
                       ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(6.0),
                           child: FadeInImage(
+                            fadeInDuration: const Duration(milliseconds: 350),
+                            fadeOutDuration: const Duration(milliseconds: 150),
                             image: NetworkImage(imageURL!),
                             placeholder: AssetImage('images/loading_image.jpg'),
                             fit: BoxFit.cover,
@@ -100,7 +103,7 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25.0),
+                          borderRadius: BorderRadius.circular(6.0),
                           gradient: LinearGradient(
                             begin: Alignment.center,
                             end: Alignment.bottomCenter,
@@ -138,6 +141,7 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 12.0),
                   child: Container(
+                    clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -146,65 +150,70 @@ class _DrinkDetailScreenState extends State<DrinkDetailScreen> {
                           blurRadius: 5.0,
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(25.0),
+                      borderRadius: BorderRadius.circular(6.0),
                       color: Colors.white,
                     ),
-                    child: SingleChildScrollView(
-                      physics: ScrollPhysics(),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0,),
-                              child: Text(
-                                'Ingredients:',
-                                style: kTitleTextStyle,
+                    child: Scrollbar(
+                      radius: Radius.circular(6.0),
+                      thickness: 10.0,
+                      isAlwaysShown: true,
+                      child: SingleChildScrollView(
+                        physics: ScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0,),
+                                child: Text(
+                                  'Ingredients:',
+                                  style: kTitleTextStyle,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: ingredients.length,
-                              itemBuilder: (context, index) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      ingredients[index].amount ?? '',
-                                      style: kIngredientTextStyle,
-                                    ),
-                                    Text(
-                                      ingredients[index].ingredient ?? '',
-                                      style: kIngredientTextStyle,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0,),
-                              child: Text(
-                                'Instructions:',
-                                style: kTitleTextStyle,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: ingredients.length,
+                                itemBuilder: (context, index) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ingredients[index].amount ?? '',
+                                        style: kIngredientTextStyle,
+                                      ),
+                                      Text(
+                                        ingredients[index].ingredient ?? '',
+                                        style: kIngredientTextStyle,
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0,),
-                            child: Text(
-                              instructions ?? 'none given.',
-                              style: kIngredientTextStyle,
-                              textAlign: TextAlign.center,
+                            Container(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0,),
+                                child: Text(
+                                  'Instructions:',
+                                  style: kTitleTextStyle,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0,),
+                              child: Text(
+                                instructions ?? 'none given.',
+                                style: kIngredientTextStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

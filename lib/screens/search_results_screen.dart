@@ -4,7 +4,8 @@ import 'package:drinking_app/services/bar_tender.dart';
 import 'package:drinking_app/screens/drink_detail_screen.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({Key? key, this.cocktailIngredientData, this.cocktailByNameData})
+  const SearchResultsScreen(
+      {Key? key, this.cocktailIngredientData, this.cocktailByNameData})
       : super(key: key);
   final dynamic cocktailIngredientData;
   final dynamic cocktailByNameData;
@@ -58,10 +59,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
           String drinkID = byNameData['drinks'][i]['idDrink'];
           drinksList.add(DrinkData(name, imageURL, drinkID));
           i++;
-
         } catch (e) {
           b = true;
-          print('b = true;');
         }
       }
     }
@@ -87,24 +86,41 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10.0,
         title: Text('Drink Finder'),
       ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/drink_background.jpg'),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/drink_background.jpg'),
+            fit: BoxFit.cover,
           ),
-          child: ListView.builder(
-            itemCount: drinksList.length,
-            itemBuilder: (context, index) {
-              return DrinkCard(
-                drinkData: drinksList[index],
-                callback: () => drinkDetail(drinksList[index].drinkID!),
-              );
-            },
+        ),
+        child: SafeArea(
+          child: Scrollbar(
+            isAlwaysShown: true,
+            thickness: 6.0,
+            radius: Radius.circular(3.0),
+            child: ListView.builder(
+              itemCount: drinksList.length,
+              itemBuilder: (context, index) {
+                if (index + 1 == drinksList.length) {
+                  print('index = length');
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: DrinkCard(
+                      drinkData: drinksList[index],
+                      callback: () => drinkDetail(drinksList[index].drinkID!),
+                    ),
+                  );
+                } else {
+                  return DrinkCard(
+                    drinkData: drinksList[index],
+                    callback: () => drinkDetail(drinksList[index].drinkID!),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),
@@ -127,10 +143,7 @@ class DrinkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: 12.0,
-      ),
+      padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
       child: GestureDetector(
         onTap: callback,
         child: AspectRatio(
@@ -148,7 +161,7 @@ class DrinkCard extends StatelessWidget {
                     ),
                   ],
                   borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
+                    Radius.circular(6.0),
                   ),
                   image: DecorationImage(
                     image: NetworkImage(
@@ -160,7 +173,7 @@ class DrinkCard extends StatelessWidget {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(6.0),
                   gradient: LinearGradient(
                       begin: Alignment.center,
                       end: Alignment.bottomCenter,

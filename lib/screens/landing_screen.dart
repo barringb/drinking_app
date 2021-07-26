@@ -50,19 +50,32 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 10.0,
         title: const Text('Drink Finder'),
       ),
-      body: SafeArea(
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/bar_background.jpg'),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/bar_background.jpg'),
+            fit: BoxFit.cover,
           ),
+        ),
+        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0,),
+                child: AspectRatio(aspectRatio: 3,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+
+                    image: DecorationImage(fit: BoxFit.fitWidth, image: AssetImage('images/drink_finder_logo.png')),
+                  ),
+                ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
@@ -143,6 +156,9 @@ class _LandingScreenState extends State<LandingScreen> {
                     ),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 50.0,
               ),
             ],
           ),
